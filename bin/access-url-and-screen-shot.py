@@ -24,7 +24,7 @@
 # https://qiita.com/ryoheiszk/items/93b2d52eec370c09a22e DockerでPython-Seleniumスクレイピング環境を立てた - Qiita
 #     上のSeleniumHQを使ったサンプルアプリ
 #
-# 2020.04.10
+# 2022.04.10
 #
 import os
 import sys
@@ -66,7 +66,7 @@ def browser_fetch(url, verbose, screenshot, fullscreenshot, cmdscreenshot, waits
         options.add_argument('--disable-extensions')       # すべての拡張機能を無効にする。ユーザースクリプトも無効にする
         options.add_argument('--proxy-server="direct://"') # Proxy経由ではなく直接接続する
         options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
-        options.add_argument('--start-maximized')          # 起動時にウィンドウを最大化する
+        # options.add_argument('--start-maximized')          # 起動時にウィンドウを最大化する
         # create driver (普通にlocalにあるchromiumを起動する場合)
         driver = webdriver.Chrome(options=options)
     else:
