@@ -54,7 +54,6 @@ RUN apt-get install -y \
         wget \
         zip \
         chromium-driver \
-        fonts-ipafont fonts-noto-cjk \
     && apt-get clean all
 
 # install python selenium library
