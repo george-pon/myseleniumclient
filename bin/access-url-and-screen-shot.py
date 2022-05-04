@@ -9,7 +9,7 @@
 #   screenshot : base64 encoded screenshot (PNG format)
 #
 # 環境変数 SELENIUM_URL または 起動オプション --seleniumurl に指定がある場合は、ネットワーク経由のselenium driverに接続する。
-# 指定が無い場合は local にある chromium コマンドを起動する。
+# 指定が無い場合は PATHに指定がある chromedriver コマンドを起動する。
 #
 # https://www.selenium.dev/documentation/webdriver/  Web Driver のドキュメント
 # 
@@ -55,11 +55,11 @@ def browser_fetch(url, verbose, screenshot, fullscreenshot, cmdscreenshot, waits
     # 引数で seleniumurl が指定された場合は、それを使う
     # 指定が無い場合は、環境変数 SELENIUM_URL を読み取ってみる
     if not seleniumurl:
-        seleniumurl = os.environ["SELENIUM_URL"]
+        seleniumurl = os.getenv("SELENIUM_URL", None)
 
     # seleniumurl の指定が無い場合は、localにあるchoromiumコマンドを起動してみる
     if not seleniumurl:
-        # 起動オプション設定 (普通にlocalにあるchromiumコマンドを起動する場合)
+        # 起動オプション設定 (普通にlocalにあるchromedriverコマンドを起動する場合)
         options = webdriver.ChromeOptions()
         options.add_argument("--headless") # ヘッドレスで起動するオプションを指定
         options.add_argument("--disable-gpu") # GPU使用しない
@@ -73,7 +73,7 @@ def browser_fetch(url, verbose, screenshot, fullscreenshot, cmdscreenshot, waits
         # ネットワーク上にあるchrome driverに接続する場合
         options = webdriver.ChromeOptions()
         driver = webdriver.Remote(
-            command_executor=os.environ["SELENIUM_URL"],
+            command_executor=seleniumurl,
             options=options
         )
 
