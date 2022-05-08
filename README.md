@@ -17,13 +17,25 @@ outputs JSON data.
     # when running on Windows , set below
     WINPTY_CMD=winpty.exe
 
-    # run image
+    # run chromedriver docker image by seleniumHQ
+    docker run --rm -d \
+        -p 4444:4444 \
+        -p 7900:7900 \
+        --shm-size=2g \
+        --net=host \
+        selenium/standalone-chrome:latest
+
+    # run this image
     docker pull docker.io/georgesan/myseleniumclient:latest
     ${WINPTY_CMD} docker run -i -t --rm \
         -e http_proxy=${http_proxy} -e https_proxy=${https_proxy} -e no_proxy="${no_proxy}" \
         --cap-add SYS_ADMIN \
+        --net=host \
         docker.io/georgesan/myseleniumclient:latest \
-        access-url-and-screen-shot.py --screenshot https://www.google.com/
+        access-url-and-screen-shot.py \
+            --seleniumurl http://localhost:4444/wd/hub \
+            --screenshot \
+            https://www.google.com/
 ```
 
 outputs below.

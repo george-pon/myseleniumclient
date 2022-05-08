@@ -1,0 +1,18 @@
+# To execute this docker-compose yml file use `docker-compose -f docker-compose-v3.yml up`
+# Add the `-d` flag at the end for detached execution
+# To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-v3.yml down`
+version: "3"
+services:
+  selenium-chrome:
+    image: selenium/standalone-chrome:latest
+    shm_size: 2gb
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+
+  selenium-bash:
+    image: docker.io/georgesan/myseleniumclient:latest
+    command: [ "sleep" , "9999999" ]
+    network_mode: "service:selenium-chrome"
+    environment:
+      SELENIUM_URL: http://selenium-chrome:4444/wd/hub

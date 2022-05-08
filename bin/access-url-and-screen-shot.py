@@ -57,7 +57,7 @@ def browser_fetch(url, verbose, screenshot, fullscreenshot, cmdscreenshot, waits
     if not seleniumurl:
         seleniumurl = os.getenv("SELENIUM_URL", None)
 
-    # seleniumurl の指定が無い場合は、localにあるchoromiumコマンドを起動してみる
+    # seleniumurl の指定が無い場合は、localにあるchoromedriverコマンドを起動してみる
     if not seleniumurl:
         # 起動オプション設定 (普通にlocalにあるchromedriverコマンドを起動する場合)
         options = webdriver.ChromeOptions()
@@ -70,7 +70,7 @@ def browser_fetch(url, verbose, screenshot, fullscreenshot, cmdscreenshot, waits
         # create driver (普通にlocalにあるchromiumを起動する場合)
         driver = webdriver.Chrome(options=options)
     else:
-        # ネットワーク上にあるchrome driverに接続する場合
+        # ネットワーク上にあるchromedriverに接続する場合
         options = webdriver.ChromeOptions()
         driver = webdriver.Remote(
             command_executor=seleniumurl,
